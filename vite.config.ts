@@ -12,6 +12,7 @@ export default defineConfig({
   plugins: [
     VueRouter({
       routesFolder: "src/ui/pages",
+      watch: false,
     }),
     Components({
       /* options */

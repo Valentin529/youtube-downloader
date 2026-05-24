@@ -5,6 +5,8 @@
   "type": "module",
   "main": "dist-electron/main.js",
   "scripts": {
+    "preinstall": "node scripts/ensure-python-shim.js",
+    "postinstall": "node scripts/install-yt-dlp-standalone.js",
     "dev:vue": "vite",
     "dev:electron": "electron .",
     "build": "run-p type-check \"build-only {@}\" --",
@@ -13,9 +15,11 @@
     "transpile:electron": "tsc --project src/electron/tsconfig.json && tsc --project src/preload/tsconfig.json",
     "preview": "vite preview",
     "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=src/electron/assets/icons/mac/icon.icns --prune=true --out=release-builds",
+    "package-mac-arm64": "electron-packager . --overwrite --platform=darwin --arch=arm64 --icon=src/electron/assets/icons/mac/icon.icns --prune=true --out=release-builds",
     "package-win": "electron-packager . --overwrite --platform=win32 --arch=ia32 --icon=src/electron/assets/icons/win/icon.ico --prune=false --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"System Monitor\"",
     "package-linux": "electron-packager . --overwrite --platform=linux --arch=x64 --icon=src/electron/assets/icons/linux/icon.png --prune=false --out=release-builds",
     "package-mac:full": "npm run transpile:electron && npm run build-only && npm run package-mac",
+    "package-mac-arm64:full": "npm run transpile:electron && npm run build-only && npm run package-mac-arm64",
     "package-win:full": "npm run transpile:electron && npm run build-only && npm run package-win",
     "package-linux:full": "npm run transpile:electron && npm run build-only && npm run package-linux"
   },
